@@ -58,19 +58,19 @@ class mediawiki::params {
   
   case $::operatingsystem {
     redhat, centos:  {
-      $web_dir            = '/var/www/html'
-      $doc_root           = "${web_dir}/wikis"
-      $packages           = ['php-gd', 'php-mysql', 'wget']
+      $web_dir  = '/var/www/html'
+      $doc_root = "${web_dir}/wikis"
+      $packages = ['php-gd', 'php-mysql', 'wget']
     }
-    debian:  {
-      $web_dir            = '/var/www'
-      $doc_root           = "${web_dir}/wikis"
-      $packages           = ['php5', 'php5-mysql', 'wget']
+    debian:     {
+      $web_dir  = '/var/www'
+      $doc_root = "${web_dir}/wikis"
+      $packages = ['php5', 'php5-mysql', 'wget']
     }
-    ubuntu:  {
-      $web_dir            = '/var/www'
-      $doc_root           = "${web_dir}/wikis"
-      $packages           = ['php5', 'php5-mysql', 'wget']
+    ubuntu:     {
+      $web_dir  = '/var/www'
+      $doc_root = "${web_dir}/wikis"
+      $packages = ['php5', 'php5-mysql', 'wget']
     }
     default: {
       fail("Module ${module_name} is not supported on ${::operatingsystem}")

@@ -55,15 +55,14 @@ class mediawiki (
   $mediawiki_install_path   = "${web_dir}/${mediawiki_dir}"
   
   # Specify dependencies
-  Class['mysql::server'] -> Class['mediawiki']
-  Class['mysql::server::config'] -> Class['mediawiki']
+  Class['mariadb::server'] -> Class['mediawiki']
   
   class { 'apache': }
   class { 'apache::mod::php': }
   
   # Manages the mysql server package and service by default
-  class { 'mysql::server':
-    root_password => $db_root_password;
+  class { 'mariadb::server':
+    config_hash => { root_password => $db_root_password }
   }
 
   package { $mediawiki::params::packages:

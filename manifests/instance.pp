@@ -155,7 +155,7 @@ define mediawiki::instance (
         recurse  => true,
       }
 
-      mysql::db { $db_name:
+      mariadb::db { $db_name:
         user     => $db_user,
         password => $db_password,
         host     => 'localhost',

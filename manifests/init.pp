@@ -56,7 +56,7 @@ class mediawiki (
   
   # Specify dependencies
   Class['mysql::server'] -> Class['mediawiki']
-  Class['mysql::config'] -> Class['mediawiki']
+  Class['mysql::server::config'] -> Class['mediawiki']
   
   class { 'apache': }
   class { 'apache::mod::php': }
@@ -81,18 +81,18 @@ class mediawiki (
   }  
   
   # Download and install MediaWiki from a tarball
-  exec { "get-mediawiki":
-    cwd       => $web_dir,
-    command   => "/usr/bin/wget ${tarball_url}",
-    creates   => "${web_dir}/${tarball_name}",
-    subscribe => File['mediawiki_conf_dir'],
-  }
-    
-  exec { "unpack-mediawiki":
-    cwd       => $web_dir,
-    command   => "/bin/tar -xvzf ${tarball_name}",
-    creates   => $mediawiki_install_path,
-    subscribe => Exec['get-mediawiki'],
+  exec {
+    "get-mediawiki":
+      cwd       => $web_dir,
+      command   => "/usr/bin/wget ${tarball_url}",
+      creates   => "${web_dir}/${tarball_name}",
+      subscribe => File['mediawiki_conf_dir'];
+      
+    "unpack-mediawiki":
+      cwd       => $web_dir,
+      command   => "/bin/tar -xvzf ${tarball_name}",
+      creates   => $mediawiki_install_path,
+      subscribe => Exec['get-mediawiki'];
   }
   
   class { 'memcached':

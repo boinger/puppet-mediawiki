@@ -26,28 +26,31 @@ specifies the webserver document root, and imposes a maximum memory limit for
 memcached. Once you ensure that MediaWiki is installed, you can then create new
 instances like this:
 
-     mediawiki::instance { 'my_wiki1':
-       db_password => 'really_long_password',
-       db_name     => 'wiki1',
-       db_user     => 'wiki1_user',
-       port        => '80',
-       ensure      => 'present'
+     mediawiki::instance {
+        'my_wiki1':
+          db_password => 'really_long_password',
+          db_name     => 'wiki1',
+          db_user     => 'wiki1_user',
+          port        => '80',
+          ensure      => 'present'
      }
  
-     mediawiki::instance { 'my_wiki2':
-       db_password => 'another_really_long_password',
-       db_name     => 'wiki2',
-       db_user     => 'wiki2_user',
-       port        => '80',
-       ensure      => 'present'
+     mediawiki::instance {
+      'my_wiki2':
+        db_password => 'another_really_long_password',
+        db_name     => 'wiki2',
+        db_user     => 'wiki2_user',
+        port        => '80',
+        ensure      => 'present'
      }
  
-     mediawiki::instance { 'my_wiki3':
-       db_password => 'yet_another_really_long_password',
-       db_name     => 'wiki3',
-       db_user     => 'wiki3_user',
-       port        => '80',
-       ensure      => 'present'
+     mediawiki::instance {
+      'my_wiki3':
+        db_password => 'yet_another_really_long_password',
+        db_name     => 'wiki3',
+        db_user     => 'wiki3_user',
+        port        => '80',
+        ensure      => 'present'
      }
  
 This codeblock creates three separate instances of MediaWiki, each with its own

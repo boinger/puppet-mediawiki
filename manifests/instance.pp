@@ -45,6 +45,7 @@ define mediawiki::instance (
   $port           = '80',
   $subdir_name    = $name,
   $server_aliases = '',
+  $short_url      = false,
   $ensure         = 'present'
   ) {
   
@@ -70,6 +71,21 @@ define mediawiki::instance (
   $wiki_doc_dir            = "${doc_root}/${subdir_name}"
   $wiki_conf_dir           = "${mediawiki_conf_dir}/${name}"
   $wiki_url_path           = "/${subdir_name}"
+
+  if ($short_url) {
+    $vh_rewrite = [
+      {
+        comment => 'Shorten wiki URLs',
+        rewrite_rule => ['/?wiki(/.*)?$ %{DOCUMENT_ROOT}/w/index.php [L]'],
+      },
+      {
+        comment => 'Redir / to Main_Page',
+        rewrite_rule => ['^/*$ %{DOCUMENT_ROOT}/w/index.php [L]'].
+      }
+    ]
+  } else {
+    $vh_rewrite = undef
+  }
 
   # Figure out how to improve db security (manually done by
   # mysql_secure_installation)

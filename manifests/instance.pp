@@ -114,9 +114,9 @@ define mediawiki::instance (
         "${mediawiki_conf_dir}/${name}/images": # Each instance needs a separate folder to upload images
           ensure => directory,
           group  => $::operatingsystem ? {
-            /(?i)(redhat|centos)/ => 'apache'
-            /(?i)(debian|ubuntu)/ => 'www-data'
-            default               => undef
+            /(?i)(redhat|centos)/ => 'apache',
+            /(?i)(debian|ubuntu)/ => 'www-data',
+            default               => undef,
           };
 
         $vh_doc_root: # Symlink for the mediawiki instance directory

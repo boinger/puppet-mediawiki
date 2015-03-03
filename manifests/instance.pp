@@ -68,10 +68,10 @@ define mediawiki::instance (
   $apache_daemon           = $mediawiki::params::apache_daemon
 
   if ($toplevel){
-    $vh_doc_root = "${doc_root}/${name}"
+    $vh_doc_root = $doc_root
     $scriptpath ="/"
   } else {
-    $vh_doc_root = $doc_root
+    $vh_doc_root = "${doc_root}/${name}"
     $scriptpath ="/${name}"
   }
 

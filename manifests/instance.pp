@@ -109,20 +109,20 @@ define mediawiki::instance (
       # MediaWiki instance directory
       file {
         "${mediawiki_conf_dir}/${name}":
-          ensure   => directory,
+          ensure   => directory;
 
         "${mediawiki_conf_dir}/${name}/images": # Each instance needs a separate folder to upload images
           ensure   => directory,
           group => $::operatingsystem ? {
-            /(?i)(redhat|centos)/ => 'apache',
-            /(?i)(debian|ubuntu)/ => 'www-data',
-            default               => undef,
+            /(?i)(redhat|centos)/ => 'apache';
+            /(?i)(debian|ubuntu)/ => 'www-data';
+            default               => undef;
           }
 
         $vh_doc_root: # Symlink for the mediawiki instance directory
           ensure   => link,
           target   => "${mediawiki_conf_dir}/${name}",
-          require  => File["${mediawiki_conf_dir}/${name}"],
+          require  => File["${mediawiki_conf_dir}/${name}"];
       }
       
       # Ensure that mediawiki configuration files are included in each instance.
@@ -150,11 +150,11 @@ define mediawiki::instance (
           ensure  => absent,
           recurse => true,
           purge   => true,
-          force   => true,
+          force   => true;
 
         $vh_doc_root: # Remove the symlink for the mediawiki instance directory
           ensure   => absent,
-          recurse  => true,
+          recurse  => true;
       }
 
       mariadb::db { $db_name:

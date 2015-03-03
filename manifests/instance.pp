@@ -128,6 +128,7 @@ define mediawiki::instance (
             /(?i)(redhat|centos)/ => 'apache',
             /(?i)(debian|ubuntu)/ => 'www-data',
             default               => undef,
+          },
           group  => $::operatingsystem ? {
             /(?i)(redhat|centos)/ => 'apache',
             /(?i)(debian|ubuntu)/ => 'www-data',

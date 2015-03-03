@@ -64,6 +64,14 @@ of instances you can create.
 To access the first of the newly created MediaWiki instances, enter
 (http://www.myawesomesite.com/my_wiki1) in your browser.
 
+### First tasks
+
+You should first create a user (with a good password, because you'll be an admin).
+
+Now log out and log back in as username: 'admin' password: 'puppet'.  **Change the admin password ASAP.**
+
+Then go to http://myawesomesite.com/my_wiki1/Special:UserRights and make your newly created user an 'administrator' and 'bureaucrat'.
+
 ## Preconditions
 
 Since puppet cannot automatically ensure that all parent directories of a

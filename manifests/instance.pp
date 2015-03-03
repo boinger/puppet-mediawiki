@@ -118,7 +118,7 @@ define mediawiki::instance (
             default               => undef,
           };
 
-        $vh_doc_root:
+        $doc_root:
           ensure  => "${mediawiki_conf_dir}/${name}",
           require => File["${mediawiki_conf_dir}/${name}"];
       }

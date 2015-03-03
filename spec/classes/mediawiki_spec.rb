@@ -54,7 +54,7 @@ describe 'mediawiki', :type => :class do
         :admin_email      => 'admin@puppetlabs.com',
         :db_root_password => 'long_password',
         :doc_root         => '/var/www/wikis',
-        :tarball_url      => 'http://download.wikimedia.org/mediawiki/1.19/mediawiki-1.19.1.tar.gz',
+        :tarball_url      => 'http://releases.wikimedia.org/mediawiki/1.24/mediawiki-1.24.1.tar.gz',
         :package_ensure   => 'installed',
         :max_memory       => '1024'
       }

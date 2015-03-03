@@ -85,7 +85,7 @@ describe 'mediawiki::instance', :type => :define do
                           'thumb.php',
                           'thumb.php5',
                           'wiki.phtml'],
-       'target_dir'    => '/var/www/mediawiki-1.19.1'
+       'target_dir'    => '/var/www/mediawiki-1.24.1'
        )
       
       should contain_file('/var/www/wikis/dummy_instance').with(
@@ -188,7 +188,7 @@ describe 'mediawiki::instance', :type => :define do
                           'thumb.php',
                           'thumb.php5',
                           'wiki.phtml'],
-       'target_dir'    => '/var/www/mediawiki-1.19.1'
+       'target_dir'    => '/var/www/mediawiki-1.24.1'
        )
        
       should contain_file('/var/www/wikis/dummy_instance').with(

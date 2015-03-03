@@ -68,7 +68,7 @@ define mediawiki::instance (
   $apache_daemon           = $mediawiki::params::apache_daemon
 
   $vh_doc_root             = "${doc_root}/${subdir_name}"
-  $scriptpath              = "/$subdir_name"
+  $scriptpath              = "/${subdir_name}"
 
   # Figure out how to improve db security (manually done by
   # mysql_secure_installation)

@@ -43,6 +43,7 @@ define mediawiki::instance (
   $db_user        = "${name}_user",
   $ip             = '*',
   $port           = '80',
+  $doc_root       = $mediawiki::doc_root,
   $server_aliases = '',
   $ensure         = 'present'
   ) {
@@ -60,7 +61,6 @@ define mediawiki::instance (
   $admin_email             = $mediawiki::admin_email
   $db_root_password        = $mediawiki::db_root_password
   $server_name             = $mediawiki::server_name
-  $doc_root                = $mediawiki::doc_root
   $mediawiki_install_path  = $mediawiki::mediawiki_install_path
   $mediawiki_conf_dir      = $mediawiki::params::conf_dir
   $mediawiki_install_files = $mediawiki::params::installation_files

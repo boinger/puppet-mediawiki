@@ -108,16 +108,16 @@ define mediawiki::instance (
         
       # MediaWiki instance directory
       file {
-        "${mediawiki_conf_dir}/${name}":
-          ensure   => directory;
+        "${mediawiki_conf_dir}/${name}":   
+          ensure => directory;
 
         "${mediawiki_conf_dir}/${name}/images": # Each instance needs a separate folder to upload images
-          ensure   => directory,
-          group => $::operatingsystem ? {
-            /(?i)(redhat|centos)/ => 'apache';
-            /(?i)(debian|ubuntu)/ => 'www-data';
-            default               => undef;
-          }
+          ensure => directory,
+          group  => $::operatingsystem ? {
+            /(?i)(redhat|centos)/ => 'apache'
+            /(?i)(debian|ubuntu)/ => 'www-data'
+            default               => undef
+          };
 
         $vh_doc_root: # Symlink for the mediawiki instance directory
           ensure   => link,
@@ -140,7 +140,7 @@ define mediawiki::instance (
         servername    => $server_name,
         vhost_name    => $ip,
         serveraliases => $server_aliases,
-        ensure        => $ensure,
+        ensure        => $ensure;
       }
     }
     'deleted': {

@@ -106,12 +106,11 @@ define mediawiki::instance (
         mode   => '0755',
       }
         
-      # MediaWiki instance directory
       file {
         "${mediawiki_conf_dir}/${name}":   
           ensure => directory;
 
-        "${mediawiki_conf_dir}/${name}/images": # Each instance needs a separate folder to upload images
+        "${mediawiki_conf_dir}/${name}/images":
           ensure => directory,
           group  => $::operatingsystem ? {
             /(?i)(redhat|centos)/ => 'apache',
@@ -119,10 +118,9 @@ define mediawiki::instance (
             default               => undef,
           };
 
-        $vh_doc_root: # Symlink for the mediawiki instance directory
-          ensure   => link,
-          target   => "${mediawiki_conf_dir}/${name}",
-          require  => File["${mediawiki_conf_dir}/${name}"];
+        $vh_doc_root:
+          ensure  => "${mediawiki_conf_dir}/${name}",
+          require => File["${mediawiki_conf_dir}/${name}"];
       }
       
       # Ensure that mediawiki configuration files are included in each instance.

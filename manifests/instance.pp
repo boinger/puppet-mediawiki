@@ -68,9 +68,9 @@ define mediawiki::instance (
   $apache_daemon           = $mediawiki::params::apache_daemon
 
   if ($toplevel){
-    $vh_doc_root = $doc_root
-  } else {
     $vh_doc_root = "{$doc_root}/${name}"
+  } else {
+    $vh_doc_root = $doc_root
   }
 
   # Figure out how to improve db security (manually done by

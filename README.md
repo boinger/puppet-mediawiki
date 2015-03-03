@@ -11,10 +11,10 @@ declare the class `mediawiki` in order to ensure that mediawiki is
 installed:
 
     class { 'mediawiki':
-      server_name        => 'www.myawesomesite.com',
-      admin_email         => 'admin@myawesomesite.com',
+      server_name      => 'www.myawesomesite.com',
+      admin_email      => 'admin@myawesomesite.com',
       db_root_password => 'really_really_long_password',
-      doc_root               => '/var/www',
+      doc_root         => '/var/www',
       max_memory       => '1024'
     }
 

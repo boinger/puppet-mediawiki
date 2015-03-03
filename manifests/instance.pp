@@ -152,6 +152,7 @@ define mediawiki::instance (
           servername    => $server_name,
           vhost_name    => $ip,
           serveraliases => $server_aliases,
+          rewrites      => $vh_rewrite,
           ensure        => $ensure;
       }
     }

@@ -59,6 +59,12 @@ class mediawiki (
   
   class { 'apache': }
   class { 'apache::mod::php': }
+
+  apache::vhost {
+    $server_name:
+      port    => '80',
+      docroot => $mediawiki_install_path;
+  }
   
   # Manages the mysql server package and service by default
   class { 'mariadb::server':

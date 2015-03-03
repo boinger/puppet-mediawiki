@@ -69,8 +69,10 @@ define mediawiki::instance (
 
   if ($toplevel){
     $vh_doc_root = "${doc_root}/${name}"
+    $scriptpath ="/"
   } else {
     $vh_doc_root = $doc_root
+    $scriptpath ="/${name}"
   }
 
   # Figure out how to improve db security (manually done by
@@ -84,7 +86,7 @@ define mediawiki::instance (
                         --pass puppet                             \
                         --email ${admin_email}                    \
                         --server http://${server_name}            \
-                        --scriptpath /${name}                     \
+                        --scriptpath ${scriptpath}                \
                         --dbtype mysql                            \
                         --dbserver localhost                      \
                         --installdbuser root                      \
@@ -107,11 +109,9 @@ define mediawiki::instance (
       }
         
       file {
-        "${mediawiki_conf_dir}/${name}":   
-          ensure => directory;
+        "${mediawiki_conf_dir}/${name}": ;
 
         "${mediawiki_conf_dir}/${name}/images":
-          ensure => directory,
           group  => $::operatingsystem ? {
             /(?i)(redhat|centos)/ => 'apache',
             /(?i)(debian|ubuntu)/ => 'www-data',

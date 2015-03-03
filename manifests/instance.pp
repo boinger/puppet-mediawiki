@@ -43,7 +43,7 @@ define mediawiki::instance (
   $db_user        = "${name}_user",
   $ip             = '*',
   $port           = '80',
-  $toplevel       = false,
+  $subdir_name    = ${name},
   $server_aliases = '',
   $ensure         = 'present'
   ) {
@@ -67,9 +67,9 @@ define mediawiki::instance (
   $mediawiki_install_files = $mediawiki::params::installation_files
   $apache_daemon           = $mediawiki::params::apache_daemon
 
-  if ($toplevel){
-    $vh_doc_root = $doc_root
-    $scriptpath ="/"
+  if ($subdir_name){
+    $vh_doc_root = "${doc_root}/${subdir_name}"
+    $scriptpath ="/$subdir_name"
   } else {
     $vh_doc_root = "${doc_root}/${name}"
     $scriptpath ="/${name}"

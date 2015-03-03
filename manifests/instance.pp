@@ -43,7 +43,7 @@ define mediawiki::instance (
   $db_user        = "${name}_user",
   $ip             = '*',
   $port           = '80',
-  $doc_root       = $mediawiki::doc_root,
+  $toplevel       = false,
   $server_aliases = '',
   $ensure         = 'present'
   ) {
@@ -63,8 +63,15 @@ define mediawiki::instance (
   $server_name             = $mediawiki::server_name
   $mediawiki_install_path  = $mediawiki::mediawiki_install_path
   $mediawiki_conf_dir      = $mediawiki::params::conf_dir
+  $doc_root                = $mediawiki::doc_root
   $mediawiki_install_files = $mediawiki::params::installation_files
   $apache_daemon           = $mediawiki::params::apache_daemon
+
+  if ($toplevel){
+    $vh_doc_root = $doc_root
+  } else {
+    $vh_doc_root = "{$doc_root}/${name}"
+  }
 
   # Figure out how to improve db security (manually done by
   # mysql_secure_installation)
@@ -100,18 +107,22 @@ define mediawiki::instance (
       }
         
       # MediaWiki instance directory
-      file { "${mediawiki_conf_dir}/${name}":
-        ensure   => directory,
-      }
+      file {
+        "${mediawiki_conf_dir}/${name}":
+          ensure   => directory,
 
-      # Each instance needs a separate folder to upload images
-      file { "${mediawiki_conf_dir}/${name}/images":
-        ensure   => directory,
-        group => $::operatingsystem ? {
-          /(?i)(redhat|centos)/ => 'apache',
-          /(?i)(debian|ubuntu)/ => 'www-data',
-          default               => undef,
-        }
+        "${mediawiki_conf_dir}/${name}/images": # Each instance needs a separate folder to upload images
+          ensure   => directory,
+          group => $::operatingsystem ? {
+            /(?i)(redhat|centos)/ => 'apache',
+            /(?i)(debian|ubuntu)/ => 'www-data',
+            default               => undef,
+          }
+
+        $vh_doc_root: # Symlink for the mediawiki instance directory
+          ensure   => link,
+          target   => "${mediawiki_conf_dir}/${name}",
+          require  => File["${mediawiki_conf_dir}/${name}"],
       }
       
       # Ensure that mediawiki configuration files are included in each instance.
@@ -120,18 +131,11 @@ define mediawiki::instance (
         install_files => $mediawiki_install_files,
         target_dir    => $mediawiki_install_path,
       }
-
-      # Symlink for the mediawiki instance directory
-      file { "${doc_root}/${name}":
-        ensure   => link,
-        target   => "${mediawiki_conf_dir}/${name}",
-        require  => File["${mediawiki_conf_dir}/${name}"],
-      }
      
       # Each instance has a separate vhost configuration
       apache::vhost { $name:
         port          => $port,
-        docroot       => $doc_root,
+        docroot       => $vh_doc_root,
         serveradmin   => $admin_email,
         servername    => $server_name,
         vhost_name    => $ip,
@@ -141,18 +145,16 @@ define mediawiki::instance (
     }
     'deleted': {
       
-      # Remove the MediaWiki instance directory if it is present
-      file { "${mediawiki_conf_dir}/${name}":
-        ensure  => absent,
-        recurse => true,
-        purge   => true,
-        force   => true,
-      }
+      file {
+        "${mediawiki_conf_dir}/${name}": # Remove the MediaWiki instance directory
+          ensure  => absent,
+          recurse => true,
+          purge   => true,
+          force   => true,
 
-      # Remove the symlink for the mediawiki instance directory
-      file { "${doc_root}/${name}":
-        ensure   => absent,
-        recurse  => true,
+        $vh_doc_root: # Remove the symlink for the mediawiki instance directory
+          ensure   => absent,
+          recurse  => true,
       }
 
       mariadb::db { $db_name:

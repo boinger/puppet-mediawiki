@@ -124,6 +124,10 @@ define mediawiki::instance (
         $wiki_conf_dir: ;
 
         "${wiki_conf_dir}/images":
+          owner  => $::operatingsystem ? {
+            /(?i)(redhat|centos)/ => 'apache',
+            /(?i)(debian|ubuntu)/ => 'www-data',
+            default               => undef,
           group  => $::operatingsystem ? {
             /(?i)(redhat|centos)/ => 'apache',
             /(?i)(debian|ubuntu)/ => 'www-data',

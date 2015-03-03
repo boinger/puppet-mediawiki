@@ -80,7 +80,7 @@ define mediawiki::instance (
       },
       {
         comment => 'Redir / to Main_Page',
-        rewrite_rule => ['^/*$ %{DOCUMENT_ROOT}/w/index.php [L]'].
+        rewrite_rule => ['^/*$ %{DOCUMENT_ROOT}/w/index.php [L]'],
       }
     ]
   } else {

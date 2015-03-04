@@ -81,19 +81,19 @@ class mediawiki (
   
   # Download and install MediaWiki from a tarball
   exec {
-    "get-mediawiki":
+    'get-mediawiki':
       cwd       => $web_dir,
       command   => "/usr/bin/wget ${tarball_url}",
       creates   => "${web_dir}/${tarball_name}",
       subscribe => File['mediawiki_conf_dir'];
       
-    "unpack-mediawiki":
+    'unpack-mediawiki':
       cwd       => $web_dir,
       command   => "/bin/tar -xvzf ${tarball_name}",
       creates   => $mediawiki_install_path,
       subscribe => Exec['get-mediawiki'];
 
-    "update.php":
+    'update.php':
       cwd         => $mediawiki_install_path,
       command     => 'maintenance/update.php',
       refreshonly => true;

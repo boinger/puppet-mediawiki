@@ -76,11 +76,11 @@ define mediawiki::instance (
   if ($short_url) {
     $vh_rewrite = [
       {
-        comment => 'Shorten wiki URLs',
+        comment      => 'Shorten wiki URLs',
         rewrite_rule => ['/?wiki(/.*)?$ %{DOCUMENT_ROOT}/w/index.php [L]'],
       },
       {
-        comment => 'Redir / to Main_Page',
+        comment      => 'Redir / to Main_Page',
         rewrite_rule => ['^/*$ %{DOCUMENT_ROOT}/w/index.php [L]'],
       }
     ]

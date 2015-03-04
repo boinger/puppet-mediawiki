@@ -46,6 +46,7 @@ define mediawiki::instance (
   $subdir_name    = $name,
   $server_aliases = '',
   $short_url      = false,
+  $ssl            = false,
   $ensure         = 'present'
   ) {
   
@@ -149,16 +150,32 @@ define mediawiki::instance (
       }
      
       # Each instance has a separate vhost configuration
-      apache::vhost {
-        $name:
-          port          => $port,
-          docroot       => $doc_root,
-          serveradmin   => $admin_email,
-          servername    => $server_name,
-          vhost_name    => $ip,
-          serveraliases => $server_aliases,
-          rewrites      => $vh_rewrite,
-          ensure        => $ensure;
+      if ($ssl) {
+        if ($port == '80') { $port = '443' }
+        apache::vhost {
+          $name:
+            port          => $port,
+            ssl           => true,
+            docroot       => $doc_root,
+            serveradmin   => $admin_email,
+            servername    => $server_name,
+            vhost_name    => $ip,
+            serveraliases => $server_aliases,
+            rewrites      => $vh_rewrite,
+            ensure        => $ensure;
+        }
+      } else {
+        apache::vhost {
+          $name:
+            port          => $port,
+            docroot       => $doc_root,
+            serveradmin   => $admin_email,
+            servername    => $server_name,
+            vhost_name    => $ip,
+            serveraliases => $server_aliases,
+            rewrites      => $vh_rewrite,
+            ensure        => $ensure;
+        }
       }
     }
     'deleted': {

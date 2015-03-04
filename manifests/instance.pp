@@ -207,4 +207,12 @@ define mediawiki::instance (
       } 
     }
   }
+
+  exec {
+    'update.php':
+      cwd         => $mediawiki_install_path,
+      command     => 'maintenance/update.php',
+      refreshonly => true,
+      require     => Exec['unpack-mediawiki'],
+  }
 }

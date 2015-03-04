@@ -92,12 +92,6 @@ class mediawiki (
       command   => "/bin/tar -xvzf ${tarball_name}",
       creates   => $mediawiki_install_path,
       subscribe => Exec['get-mediawiki'];
-
-    'update.php':
-      cwd         => $mediawiki_install_path,
-      command     => 'maintenance/update.php',
-      refreshonly => true,
-      require     => Exec['unpack-mediawiki']
   }
   
   class { 'memcached':

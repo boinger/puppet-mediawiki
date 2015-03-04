@@ -151,7 +151,7 @@ define mediawiki::instance (
      
       # Each instance has a separate vhost configuration
       if ($ssl) {
-        sslport = ($port == '80') ? '443' : $port
+        $sslport = ($port == '80') ? '443' : $port
         apache::vhost {
           $name:
             port          => $sslport,

@@ -96,7 +96,8 @@ class mediawiki (
     'update.php':
       cwd         => $mediawiki_install_path,
       command     => 'maintenance/update.php',
-      refreshonly => true;
+      refreshonly => true,
+      require     => Exec['unpack-mediawiki']
   }
   
   class { 'memcached':

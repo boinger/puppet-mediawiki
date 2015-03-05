@@ -6,7 +6,7 @@
 #
 # Jeff Vier <jeff@jeffvier.com>
 #
-define mediawiki::update ( ) {
+class mediawiki::update {
   
   exec {
     'update.php':
@@ -14,5 +14,5 @@ define mediawiki::update ( ) {
       command     => 'maintenance/update.php',
       refreshonly => true,
   }
-  
+
 }

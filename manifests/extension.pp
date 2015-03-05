@@ -35,7 +35,7 @@ define mediawiki::extension (
   ) {
 
   include mediawiki::params
-  Mediawiki::Instance[$name] -> Mediawiki::Extension[$name]
+  Mediawiki::Instance[$instance] -> Mediawiki::Extension[$name]
 
   $ext_dir = "${mediawiki_conf_dir}/${instance}/extensions"
 

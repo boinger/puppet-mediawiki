@@ -6,7 +6,7 @@
 #
 # Jeff Vier <jeff@jeffvier.com>
 #
-define mediawiki::update {
+define mediawiki::update () {
   
   include mediawiki::params
 

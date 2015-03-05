@@ -6,15 +6,16 @@
 #
 # Jeff Vier <jeff@jeffvier.com>
 #
-define mediawiki::update () {
+define mediawiki::update (
+  $instance = $name,
+  ) {
   
   include mediawiki::params
 
   exec {
     'update.php':
-      cwd         => "${mediawiki::params::conf_dir}/${name}",
+      cwd         => "${mediawiki::params::conf_dir}/${instance}",
       command     => './maintenance/update.php --conf LocalSettings.php --quick',
-      refreshonly => true,
   }
 
 }

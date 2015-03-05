@@ -1,6 +1,6 @@
-# == Define: mediawiki::update
+# == Class: mediawiki::update
 #
-# This defined type runs update.php (which you sometimes need to do when you add an extension)
+# This class allows notfiy of update.php (which you sometimes need to do when you add an extension)
 #
 # === Authors
 #

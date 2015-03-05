@@ -15,7 +15,7 @@ define mediawiki::update (
   exec {
     'update.php':
       cwd         => "${mediawiki::params::conf_dir}/${instance}",
-      command     => './maintenance/update.php --conf LocalSettings.php --quick',
+      command     => "${mediawiki::params::conf_dir}/${instance}/maintenance/update.php --conf LocalSettings.php --quick",
       refreshonly => true,
       logoutput   => true,
   }

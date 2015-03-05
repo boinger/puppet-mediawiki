@@ -11,7 +11,7 @@ class mediawiki::update {
   exec {
     'update.php':
       cwd         => $mediawiki_install_path,
-      command     => './maintenance/update.php',
+      command     => './maintenance/update.php --conf LocalSettings.php --quick',
       refreshonly => true,
   }
 

@@ -60,7 +60,8 @@ class mediawiki::params {
     redhat, centos:  {
       $web_dir  = '/var/www/html'
       $doc_root = "${web_dir}/wikis"
-      $packages = ['php-gd', 'php-mysql', 'wget']
+      #$packages = ['php-gd', 'php-mysql', 'wget'] ## php stuff clobbered by site/manifests/virtual.pp
+      $packages = ['wget']
     }
     debian:     {
       $web_dir  = '/var/www'

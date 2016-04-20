@@ -61,7 +61,7 @@ class mediawiki::params {
       $web_dir  = '/var/www/html'
       $doc_root = "${web_dir}/wikis"
       #$packages = ['php-gd', 'php-mysql', 'wget'] ## php stuff clobbered by site/manifests/virtual.pp
-      $packages = ['wget']
+      $packages = []
     }
     debian:     {
       $web_dir  = '/var/www'

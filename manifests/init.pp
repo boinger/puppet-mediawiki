@@ -62,7 +62,10 @@ class mediawiki (
 
   # Manages the mysql server package and service by default
   class { 'mariadb::server':
-    config_hash => { root_password => $db_root_password }
+    config_hash => {
+      root_password => $db_root_password,
+      manage_repo   => false,
+      }
   }
 
   package { $mediawiki::params::packages:
